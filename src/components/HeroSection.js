@@ -1,4 +1,3 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import SplitType from "split-type";
@@ -21,16 +20,11 @@ function HeroSection() {
   useEffect(() => {
     if (!textRef.current || !buttonRef.current) return;
 
-    // Split text into characters
     const splitText = new SplitType(textRef.current, { types: "chars" });
-
     if (!splitText.chars) return;
-
     const tl = gsap.timeline({ delay: 0.5 });
-
     gsap.set(buttonRef.current, { opacity: 0, y: 20 });
 
-    // Text animation
     tl.fromTo(
       splitText.chars,
       { opacity: 0, y: 20, rotateX: -90 },
@@ -44,7 +38,6 @@ function HeroSection() {
       }
     );
 
-    // Button animation
     tl.to(
       buttonRef.current,
       {
@@ -56,7 +49,6 @@ function HeroSection() {
       "-=0.2"
     );
 
-    // Button hover animations
     const handleMouseEnter = () => {
       gsap.to(buttonTextRef.current, {
         x: -4,
@@ -83,7 +75,7 @@ function HeroSection() {
     buttonRef.current.addEventListener("mouseenter", handleMouseEnter);
     buttonRef.current.addEventListener("mouseleave", handleMouseLeave);
 
-    // Image slider animation
+    
     const slideInterval = setInterval(() => {
       const nextIndex = (currentImageIndex + 1) % IMAGES.length;
       const currentImage = imageRefs.current[currentImageIndex];
@@ -109,7 +101,7 @@ function HeroSection() {
       setCurrentImageIndex(nextIndex);
     }, 5000);
 
-    // Cleanup
+    
     return () => {
       tl.kill();
       splitText.revert();
@@ -119,7 +111,7 @@ function HeroSection() {
     };
   }, [currentImageIndex]);
 
-  // Inline styles
+
   const containerStyle = {
     position: "relative",
     width: "100%",
@@ -193,7 +185,7 @@ function HeroSection() {
 
   return (
     <div style={containerStyle}>
-      {/* Background Images */}
+      
       {IMAGES.map((src, index) => (
         <img
           key={src}
